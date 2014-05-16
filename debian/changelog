@@ -1,3 +1,9 @@
+boost1.55 (1.55.0-1.1~aroth~ppa1) trusty; urgency=medium
+
+  * integrate patch for 128-bit intrinsics of atomic for clang
+
+ -- Andreas Roth <aroth@arsoft-online.com>  Fri, 16 May 2014 07:43:08 +0200
+
 boost1.55 (1.55.0-1) unstable; urgency=low
 
   [ Steve M. Robbins ]
