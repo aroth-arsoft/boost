@@ -1,3 +1,52 @@
+boost-mpi-source1.55 (1.55.0+dfsg-1ubuntu3.1~aroth~ppa1) utopic; urgency=medium
+
+  * add atomic patch for clang to utopic as well
+
+ -- Andreas Roth <aroth@arsoft-online.com>  Tue, 28 Oct 2014 07:43:22 +0100
+
+boost-mpi-source1.55 (1.55.0+dfsg-1ubuntu3) utopic; urgency=medium
+
+  * No-change rebuild to get debugsyms into ddebs.ubuntu.com for all binary
+    packages.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Thu, 24 Jul 2014 11:31:03 -0700
+
+boost-mpi-source1.55 (1.55.0+dfsg-1ubuntu2) utopic; urgency=medium
+
+  * Temporarily disable precompiled headers on arm64, until the compiler is
+    fixed.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 18 Jun 2014 12:07:16 +0100
+
+boost-mpi-source1.55 (1.55.0+dfsg-1ubuntu1) utopic; urgency=medium
+
+  * Build just mpi.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Sat, 24 May 2014 00:09:46 +0100
+
+boost1.55 (1.55.0+dfsg-1) unstable; urgency=medium
+
+  * Convert debian/copyright to copyright-format 1.0.
+  * Use Uscan extension https://wiki.debian.org/UscanEnhancements to
+    declare excluded file (W3C validation icon)
+  * Use uscan to download current version of boost, and thus
+    auto-repackage with above non-dfsg file removed. Or
+    e.g. --svn-download-orig option to svn-buildpackage.
+  * Adjust version parsing in the debian/rules to keep the same versioning
+    information.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Sun, 11 May 2014 01:22:15 +0100
+
+boost1.55 (1.55.0-2) unstable; urgency=medium
+
+  * In libboost-python1.55-dev drop gccxml to Suggests as it's not
+    available on all architectures, is based upon old gcc, and not at all
+    required to compile boost-python based projects.
+  * Mark libboost1.55-dev & libboost-coroutine1.55-dev as Multi-Arch same.
+  * Automate more of building boost without mpi, or just mpi portions.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Fri, 02 May 2014 15:54:44 +0100
+
 boost1.55 (1.55.0-1.1~aroth~ppa2) trusty; urgency=medium
 
   * take over latest changes from atomic

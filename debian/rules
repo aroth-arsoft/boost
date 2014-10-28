@@ -1,7 +1,7 @@
 #! /usr/bin/make -f
 
 WITHOUT_MPI:=no
-JUST_MPI:=no
+JUST_MPI:=yes
 with_mpi:=--with-mpi
 MPI_CONFIG = "using mpi ;"
 
@@ -84,10 +84,13 @@ override_dh_auto_clean: clean-debhelper
 	rm -rf user-config.jam
 	rm -rf debian/bjam.1
 ifeq ($(WITHOUT_MPI),yes)
-	# TODO, should also remove/add build-deps as well.
 	grep-dctrl -FPackage -v mpi -o -FPackage graph-parallel -o -FPackage all-dev debian/control.in > debian/control
+	sed -i "s/mpi-default-dev,//" debian/control
 else
 	cp debian/control.in debian/control
+endif
+ifeq ($(JUST_MPI),yes)
+	sed -i "s/mpi-default-dev,/mpi-default-dev, libboost-serialization$(PKGVERSION)-dev, libboost-python$(PKGVERSION)-dev,/" debian/control
 endif
 	dh_auto_clean
 
@@ -198,7 +201,7 @@ ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 endif
 
 version_full = $(shell dpkg-parsechangelog | grep Version | cut -d' ' -f2)
-version_upstream = $(shell echo $(version_full) | cut -d'-' -f1)
+version_upstream = $(shell echo $(version_full) | cut -d'+' -f1)
 version_major = $(shell echo $(version_upstream) | cut -d'.' -f1,2)
 
 PKGVERSION = $(version_major)
@@ -362,6 +365,10 @@ bbv2dir = $(CURDIR)/tools/build/v2
 
 # With --ignore-site-config, can probably drop Build-Conflicts on boost-build.
 JAM = $(bjam) $(JOBS) -d2 $(JAM_OPT) --layout=system --ignore-site-config --user-config=$(CURDIR)/user-config.jam debug-symbols=on
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+ifeq ($(DEB_HOST_ARCH),arm64)
+JAM += pch=off
+endif
 
 
 
